@@ -8,7 +8,7 @@ Selector queries and responsive containers
 
 This script allows you to apply different class values to an HTML element based on its width. Use it as follows:
 
-    <div data-squery="large=500px wide=max-width:1200px whatever=10em">
+    <div data-squery="wide=400px small=max-width:10em">
         <p>Content here</p>
     </div>
     
