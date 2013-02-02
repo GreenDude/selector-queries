@@ -66,7 +66,7 @@ THE SOFTWARE.
                 var cq_rules = [];
                 var raw_rules = el.getAttribute("data-squery").split(" ");
                 for (var k = 0, l = raw_rules.length; k<l; ++k) {
-                    var rule = /(.*):([0-9]*)(px|em)=(.*)/.exec(raw_rules[k]);
+                    var rule = /(.*)=(.*:)?([0-9]*)(px|em)/.exec(raw_rules[k]);
                     if (rule) {
                         cq_rules.push(rule);
                     }
@@ -85,21 +85,29 @@ THE SOFTWARE.
             for (var k = 0, l = el.cq_rules.length; k<l; ++k) {
                 var rule = el.cq_rules[k];
 
+                var label = rule[1];
+
+                // Only min or max waidth are supported. 
+                // If nothing is specified assume min-width
+                var constraint = rule[2] === undefined ? 'min-width' : 'max-width';
+
                 // Get a target width value in pixels.
-                var width = parseInt(rule[2]);
-                if (rule[3] === "em") {
-                    width = emsToPixels(parseFloat(rule[2]), el);
+                var width = parseInt(rule[3]);
+                
+                if (rule[4] === "em") {
+                    width = emsToPixels(parseFloat(rule[3]), el);
                 }
 
                 // Calculate the width of the target without the class added.
-                var defaultWidth = getDefaultWidth(el, rule[4]);
+                var defaultWidth = getDefaultWidth(el, label);
+
                 // Test current width against target width and add/remove class values.
-                if ( compareFunction[rule[1]](defaultWidth, width) ) {
-                    if (el.className.indexOf(rule[4]) < 0) {
-                        el.className += " " + rule[4];
+                if ( compareFunction[constraint](defaultWidth, width) ) {
+                    if (el.className.indexOf(label) < 0) {
+                        el.className += " " + label;
                     }
                 } else {
-                    var class_name = el.className.replace(new RegExp('(^| )'+rule[4]+'( |$)'), '$1'); 
+                    var class_name = el.className.replace(new RegExp('(^| )'+label+'( |$)'), '$1'); 
                     class_name = class_name.replace(/ $/, '');
                     el.className = class_name;
                 }
