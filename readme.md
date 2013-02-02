@@ -1,9 +1,14 @@
+### Mods:
+
+*   adjusted syntax, default min-width
+
+
 Selector queries and responsive containers
 ==========================================
 
 This script allows you to apply different class values to an HTML element based on its width. Use it as follows:
 
-    <div data-squery="min-width:400px=wide max-width:10em=small">
+    <div data-squery="large=500px wide=max-width:1200px whatever=10em">
         <p>Content here</p>
     </div>
     
