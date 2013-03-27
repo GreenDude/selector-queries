@@ -66,7 +66,7 @@ THE SOFTWARE.
                 var cq_rules = [];
                 var raw_rules = el.getAttribute("data-squery").split(" ");
                 for (var k = 0, l = raw_rules.length; k<l; ++k) {
-                    var rule = /(.*)=(.*:)?([0-9]*)(px|em)/.exec(raw_rules[k]);
+                    var rule = /(.*)=(.*:)?([.0-9]*)(px|em)/.exec(raw_rules[k]);
                     if (rule) {
                         cq_rules.push(rule);
                     }
