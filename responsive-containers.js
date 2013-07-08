@@ -1,7 +1,7 @@
 /*
 MIT Licensed.
 Copyright (c) 2011 Andy Hume (http://andyhume.net, andyhume@gmail.com).
- 
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -50,7 +50,7 @@ THE SOFTWARE.
             // Find data-squery attributes.
             var nodes = [];
             if (doc.querySelectorAll) {
-                var nodes = doc.querySelectorAll("[data-squery]");
+                nodes = doc.querySelectorAll("[data-squery]");
             } else {
                 // If no query selectors.
                 var e = doc.getElementsByTagName("*");
@@ -87,13 +87,13 @@ THE SOFTWARE.
 
                 var label = rule[1];
 
-                // Only min or max waidth are supported. 
+                // Only min or max waidth are supported.
                 // If nothing is specified assume min-width
-                var constraint = rule[2] === undefined ? 'min-width' : 'max-width';
+                var constraint = !rule[2] ? 'min-width' : 'max-width';
 
                 // Get a target width value in pixels.
-                var width = parseInt(rule[3]);
-                
+                var width = parseInt(rule[3], 10);
+
                 if (rule[4] === "em") {
                     width = emsToPixels(parseFloat(rule[3]), el);
                 }
@@ -107,7 +107,7 @@ THE SOFTWARE.
                         el.className += " " + label;
                     }
                 } else {
-                    var class_name = el.className.replace(new RegExp('(^| )'+label+'( |$)'), '$1'); 
+                    var class_name = el.className.replace(new RegExp('(^| )'+label+'( |$)'), '$1');
                     class_name = class_name.replace(/ $/, '');
                     el.className = class_name;
                 }
@@ -122,7 +122,7 @@ THE SOFTWARE.
         "max-width": function(a, b) {
             return a < b;
         }
-    }
+    };
 
     function contentReady() {
         if (loaded) {
@@ -178,7 +178,7 @@ THE SOFTWARE.
         var val = test.offsetWidth;
         parent.removeChild(test);
         return val;
-    }
+    };
 
     if (doc.addEventListener) {
         doc.addEventListener("DOMContentLoaded", contentReady, false);
@@ -196,6 +196,6 @@ THE SOFTWARE.
     win["SelectorQueries"] = {
         "add": add,
         "ignoreDataAttributes": ignoreDataAttributes
-    }
+    };
 
 })(this);
